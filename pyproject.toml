@@ -1,0 +1,11 @@
+[project]
+name = "pawsword"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "cryptography>=46.0.3",
+    "customtkinter>=5.2.2",
+    "platformdirs>=4.5.1",
+]
