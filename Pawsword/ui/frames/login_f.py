@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from tkinter import messagebox
 from cryptography.exceptions import InvalidTag
 from Pawsword.control import load_vault, vault_exists
 
@@ -18,20 +19,24 @@ class LoginFrame(ctk.CTkFrame):
 
         ctk.CTkButton(self, text="Login", command=self.login).pack(pady=10)
 
+        self.status_label = ctk.CTkLabel(self,text="",text_color="red")
+        self.status_label.pack(pady=5)
+
+    def show_message(self, msg, duration=2000):
+        self.status_label.configure(text=msg)
+        self.after(duration, lambda: self.status_label.configure(text=""))
+
     def login(self):
 
-        email = self.email_var
-        masterpass = self.masterpass_var
+        email = self.email_var.get()
+        masterpass = self.masterpass_var.get()
 
         if not vault_exists():
-            print("Vault does not exist")
+            self.show_message("Vault does not exist!")
             return
         
         try:
             vault = load_vault(email,masterpass)
             self.switch_frame("vault")
         except InvalidTag:
-            print("Incorrect master password")
-
-        print(f"Email: {self.email_var.get()}, Pass: {self.masterpass_var.get()}")
-        self.switch_frame("vault")
+            self.show_message("Incorrect email or master password!")

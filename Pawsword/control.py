@@ -77,8 +77,10 @@ if __name__ == '__main__':
     email = "email@example.com"
     masterpass = "masterpass6"
 
-    add_entry(email,masterpass,"Fortnite","fnCOOLLLLL","dontStealMyVbuck6769")
+    create_vault(email,masterpass)
 
-    print(get_entry(email,masterpass,"Fortnite"))
+    # add_entry(email,masterpass,"Fortnite","fnCOOLLLLL","dontStealMyVbuck6769")
 
-    remove_entry(email,masterpass,"Fortnite")
+    # print(get_entry(email,masterpass,"Fortnite"))
+
+    # remove_entry(email,masterpass,"Fortnite")
