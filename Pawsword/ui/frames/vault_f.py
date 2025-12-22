@@ -44,12 +44,21 @@ class VaultFrame(ctk.CTkFrame):
         self.status_label.configure(text=message)
         self.after(duration, lambda: self.status_label.configure(text=""))
 
-    def view_entry_ui(self, service):
-        try:
-            entry = get_entry(self.email, self.masterpass, service)
-            self.show_message(f"{service}: {entry['username']} / {entry['password']}", duration=4000)
-        except Exception as e:
-            self.show_message(str(e))
+    # def view_entry_ui(self, service):
+    #     try:
+    #         entry = get_entry(self.email, self.masterpass, service)
+
+    #         if hasattr(self, 'view_label') and self.view_label.winfo_exists():
+    #             self.view_label.destroy()
+
+    #         self.view_label = ctk.CTkLabel(self, text=f"{service}: {entry['username']} / {entry['password']}",
+    #                                         text_color="white")
+    #         self.view_label.pack(pady=5)
+
+    #         self.after(4000, lambda: self.view_label.destroy())
+
+    #     except Exception as e:
+    #         self.show_message(str(e))
 
     def remove_entry_ui(self, service):
         try:
@@ -64,24 +73,35 @@ class VaultFrame(ctk.CTkFrame):
             widget.destroy()
 
         try:
-            services = list_services(self.email,self.masterpass)
+            services = list_services(self.email, self.masterpass)
+
+            header = ctk.CTkFrame(self.scroll_frame)
+            header.pack(fill="x", pady=2, padx=5)
+            for i in range(4):
+                header.grid_columnconfigure(i, weight=1)
+
+            ctk.CTkLabel(header, text="Service").grid(row=0, column=0, sticky="w", padx=5)
+            ctk.CTkLabel(header, text="Username").grid(row=0, column=1, sticky="w", padx=5)
+            ctk.CTkLabel(header, text="Password").grid(row=0, column=2, sticky="w", padx=5)
+            ctk.CTkLabel(header, text="Remove").grid(row=0, column=3, padx=5)
+
             for service in services:
-                frame = ctk.CTkFrame(self.scroll_frame)
-                frame.pack(fill="x", pady=2, padx=5)
+                entry = get_entry(self.email, self.masterpass, service)
+                row_frame = ctk.CTkFrame(self.scroll_frame)
+                row_frame.pack(fill="x", pady=2, padx=5)
+                for i in range(4):
+                    row_frame.grid_columnconfigure(i, weight=1)
 
-                label = ctk.CTkLabel(self.scroll_frame,text=service)
-                label.pack(pady=2,padx=5)
+                ctk.CTkLabel(row_frame, text=service, anchor="w").grid(row=0, column=0, sticky="w", padx=5)
+                ctk.CTkLabel(row_frame, text=entry["username"], anchor="w").grid(row=0, column=1, sticky="w", padx=5)
+                ctk.CTkLabel(row_frame, text=entry["password"], anchor="w").grid(row=0, column=2, sticky="w", padx=5)
 
-                btn_view = ctk.CTkButton(frame,text="View",width=60,command=lambda s=service: self.view_entry_ui(s))
-
-                btn_view.pack(side="right", padx=5)
-
-                btn_remove = ctk.CTkButton(frame, text="Remove", width=60, command=lambda s=service: self.remove_entry_ui(s))
-                
-                btn_remove.pack(side="right",padx=5)
+                ctk.CTkButton(row_frame, text="Remove", width=60,
+                            command=lambda s=service: self.remove_entry_ui(s)).grid(row=0, column=3, padx=5)
 
         except Exception as e:
             self.show_message(str(e))
+
 
     def add_entry_ui(self):
         service = self.service_var.get()
