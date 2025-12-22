@@ -6,38 +6,42 @@ from tkinter import PhotoImage
 import os
 import sys
 
-app = ctk.CTk()
+def main():
 
-app.geometry('900x700')
+    app = ctk.CTk()
 
-app.resizable(False, False)
+    app.geometry('900x700')
 
-app.title('Pawsword')
+    app.resizable(False, False)
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-if sys.platform == "win32":
-    icon_path = os.path.join(current_dir, "../assets/cat-hacker.ico")
-    icon_path = os.path.normpath(icon_path)
-    if os.path.exists(icon_path):
-        app.iconbitmap(icon_path)
-else:
-    icon_path = os.path.join(current_dir, "../assets/cat-hacker.png")
-    icon_path = os.path.normpath(icon_path)
-    if os.path.exists(icon_path):
-        icon = PhotoImage(file=icon_path)
-        app.iconphoto(True, icon)
+    app.title('Pawsword')
 
-app.frames = {}
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    if sys.platform == "win32":
+        icon_path = os.path.join(current_dir, "../assets/cat-hacker.ico")
+        icon_path = os.path.normpath(icon_path)
+        if os.path.exists(icon_path):
+            app.iconbitmap(icon_path)
+    else:
+        icon_path = os.path.join(current_dir, "../assets/cat-hacker.png")
+        icon_path = os.path.normpath(icon_path)
+        if os.path.exists(icon_path):
+            icon = PhotoImage(file=icon_path)
+            app.iconphoto(True, icon)
 
-def show_frame(f):
-    for frame in app.frames.values():
-        frame.pack_forget()
-    app.frames[f].pack(fill="both", expand=True)
+    app.frames = {}
 
-app.frames["login"] = LoginFrame(app,show_frame)
-app.frames["vault"] = VaultFrame(app,show_frame)
+    def show_frame(f):
+        for frame in app.frames.values():
+            frame.pack_forget()
+        app.frames[f].pack(fill="both", expand=True)
 
-show_frame("login")
+    app.frames["login"] = LoginFrame(app,show_frame)
+    app.frames["vault"] = VaultFrame(app,show_frame)
+
+    show_frame("login")
+
+    app.mainloop()
 
 if __name__ == '__main__':
-    app.mainloop()
+    main()
