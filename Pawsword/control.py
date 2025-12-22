@@ -70,6 +70,8 @@ def get_entry(email: str, masterpass: str, service: str):
     
     return vault[service]
 
+def list_services(email: str, masterpass: str) -> list:
+    return list(load_vault(email, masterpass).keys())
 
 if __name__ == '__main__':
     email = "email@example.com"
