@@ -51,3 +51,10 @@ def decrypt_vault(email: str,masterpass: str,full_encrypted_data: bytes) -> dict
     decrypted_data = aesgcm.decrypt(nonce,encrypted_data,associated_data=None)
 
     return json.loads(decrypted_data.decode()) # returns as json
+
+if __name__ == '__main__':
+    imadict = {'Fortnite_Password': '1234567secure'} 
+    thingy = encrypt_vault("email@example.com","masterpass6",imadict)
+    print(thingy)
+    unthingy = decrypt_vault("email@example.com","masteerpass6",thingy)
+    print(unthingy)
