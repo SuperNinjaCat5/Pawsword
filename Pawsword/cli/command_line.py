@@ -53,7 +53,24 @@ def remove(service: str):
     except ValueError:
         typer.secho("Service does not exist!", fg=typer.colors.RED)
     except Exception as e:
-        typer.secho(f"Failed to add service: {e}", fg=typer.colors.RED)
+        typer.secho(f"Failed to remove service: {e}", fg=typer.colors.RED)
+
+@app.command()
+def list():
+    require_login()
+
+    try:
+        services = list_services(session["email"],session["masterpass"])
+
+        for i, service in enumerate(services):
+            typer.secho(f"{i+1}. {service}", fg=typer.colors.CYAN)
+
+    except InvalidTag:
+        typer.secho("Incorrect login!", fg=typer.colors.RED)
+    except ValueError:
+        typer.secho("Service does not exist!", fg=typer.colors.RED)
+    except Exception as e:
+        typer.secho(f"Failed to list services: {e}", fg=typer.colors.RED)
 
 
 def main():
