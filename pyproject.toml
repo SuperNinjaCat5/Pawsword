@@ -7,7 +7,7 @@ name = "pawsword"
 version = "0.2.0"
 description = "A simple encrypted password manager"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 license = { text = "MIT" }
 authors = [
     { name = "Ben Elliott", email = "you@example.com" }
