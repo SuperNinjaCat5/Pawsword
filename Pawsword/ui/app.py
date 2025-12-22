@@ -3,7 +3,6 @@ from Pawsword.control import load_vault, vault_exists
 from Pawsword.ui.frames.login_f import LoginFrame
 from Pawsword.ui.frames.vault_f import VaultFrame
 
-ctk.set_appearance_mode("dark")
 
 app = ctk.CTk()
 
