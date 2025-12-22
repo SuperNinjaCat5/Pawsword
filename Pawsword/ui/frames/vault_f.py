@@ -31,7 +31,6 @@ class VaultFrame(ctk.CTkFrame):
         self.status_label = ctk.CTkLabel(self,text="",text_color="red")
         self.status_label.pack(pady=5)
 
-        self.set_credentials("email@example.com","masterpass6")
         self.refresh_services()
 
 
@@ -43,22 +42,6 @@ class VaultFrame(ctk.CTkFrame):
     def show_message(self, message, duration=2000):
         self.status_label.configure(text=message)
         self.after(duration, lambda: self.status_label.configure(text=""))
-
-    # def view_entry_ui(self, service):
-    #     try:
-    #         entry = get_entry(self.email, self.masterpass, service)
-
-    #         if hasattr(self, 'view_label') and self.view_label.winfo_exists():
-    #             self.view_label.destroy()
-
-    #         self.view_label = ctk.CTkLabel(self, text=f"{service}: {entry['username']} / {entry['password']}",
-    #                                         text_color="white")
-    #         self.view_label.pack(pady=5)
-
-    #         self.after(4000, lambda: self.view_label.destroy())
-
-    #     except Exception as e:
-    #         self.show_message(str(e))
 
     def remove_entry_ui(self, service):
         try:

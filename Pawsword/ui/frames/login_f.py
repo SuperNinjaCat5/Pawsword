@@ -37,6 +37,8 @@ class LoginFrame(ctk.CTkFrame):
         
         try:
             vault = load_vault(email,masterpass)
+            vault_frame = self.master.frames["vault"]
+            vault_frame.set_credentials(email,masterpass)
             self.switch_frame("vault")
         except InvalidTag:
             self.show_message("Incorrect email or master password!")

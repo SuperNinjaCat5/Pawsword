@@ -74,8 +74,8 @@ def list_services(email: str, masterpass: str) -> list:
     return list(load_vault(email, masterpass).keys())
 
 if __name__ == '__main__':
-    email = "email@example.com"
-    masterpass = "masterpass6"
+    email = "123@example.com"
+    masterpass = "123"
 
     create_vault(email,masterpass)
 

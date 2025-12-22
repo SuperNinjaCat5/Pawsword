@@ -11,15 +11,15 @@ app.geometry('900x700')
 
 app.title('Pawsword')
 
-all_frames = {}
+app.frames = {}
 
 def show_frame(f):
-    for frame in all_frames.values():
+    for frame in app.frames.values():
         frame.pack_forget()
-    all_frames[f].pack(fill="both", expand=True)
+    app.frames[f].pack(fill="both", expand=True)
 
-all_frames["login"] = LoginFrame(app,show_frame)
-all_frames["vault"] = VaultFrame(app,show_frame)
+app.frames["login"] = LoginFrame(app,show_frame)
+app.frames["vault"] = VaultFrame(app,show_frame)
 
 show_frame("login")
 
