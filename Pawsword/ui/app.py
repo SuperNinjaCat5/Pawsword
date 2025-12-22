@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from Pawsword.control import load_vault, vault_exists
 from frames.login_f import LoginFrame
 from frames.vault_f import VaultFrame
 

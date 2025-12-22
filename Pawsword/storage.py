@@ -1,4 +1,4 @@
-from paths import get_vault_path
+from Pawsword.paths import get_vault_path
 
 def get_vault():
     vault_path = get_vault_path()

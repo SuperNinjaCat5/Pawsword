@@ -1,6 +1,6 @@
-from paths import get_app_dir, get_vault_path
-from storage import get_vault, write_vault
-from encryption import encrypt_vault, decrypt_vault
+from Pawsword.paths import get_app_dir, get_vault_path
+from Pawsword.storage import get_vault, write_vault
+from Pawsword.encryption import encrypt_vault, decrypt_vault
 
 def vault_exists() -> bool:
     return get_vault_path().exists()
