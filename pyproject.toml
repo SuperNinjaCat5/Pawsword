@@ -17,7 +17,9 @@ dependencies = [
     "cryptography>=46.0.3",
     "customtkinter>=5.2.2",
     "platformdirs>=4.5.1",
+    "typer>=0.20.1",
 ]
 
 [project.scripts]
-pawsword = "Pawsword.ui.app:main"
+pawp = "Pawsword.ui.app:main"
+pawpcli = "Pawsword.cli.command_line:main"
