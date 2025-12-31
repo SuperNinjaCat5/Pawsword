@@ -1,5 +1,5 @@
 from Pawsword.paths import get_app_dir, get_vault_path
-from Pawsword.storage import get_vault, write_vault
+from Pawsword.storage import get_vault, write_vault, kill_vault
 from Pawsword.encryption import encrypt_vault, decrypt_vault
 
 def vault_exists() -> bool:
@@ -14,6 +14,12 @@ def create_vault(email: str, masterpass: str):
     encrypted_vault = encrypt_vault(email,masterpass,vault)
 
     write_vault(encrypted_vault)
+
+def delete_vault():
+    if (not vault_exists()):
+       raise FileNotFoundError("No Vault exists") 
+    
+    kill_vault()
 
 def load_vault(email: str, masterpass: str) -> dict:
     if not vault_exists():

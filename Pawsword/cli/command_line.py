@@ -1,4 +1,4 @@
-from Pawsword.control import add_entry, get_entry, vault_exists, list_services, remove_entry
+from Pawsword.control import add_entry, get_entry, vault_exists, list_services, remove_entry, create_vault, delete_vault
 import typer
 from getpass import getpass
 from cryptography.exceptions import InvalidTag
@@ -39,6 +39,42 @@ def logout():
     keyring.delete_password("godOPass", user_data["email"])
     user_data["masterpass"] = None
     typer.secho("Logged out successfully.", fg=typer.colors.GREEN)
+
+@app.command()
+def init(email: str, masterpass: str): # creates vault
+    try:
+        create_vault(email,masterpass)
+        typer.secho("Vault created!", fg=typer.colors.GREEN)
+    except FileExistsError:
+        typer.secho("Vault already exists, use pawpcli --help to see commands!", fg=typer.colors.RED)
+
+@app.command()
+def destroy():
+    require_login()
+
+    try:
+        add_entry(user_data["email"], user_data["masterpass"], "CYA SUCKER", "GOODBYE", "DARKNESS MY OLD FRIEND")
+    except InvalidTag:
+        typer.secho("Incorrect login!", fg=typer.colors.RED)
+        return
+    except FileNotFoundError:
+        typer.secho("No vault to delete :pf:", fg=typer.colors.RED)
+        return
+
+    remove_entry(user_data["email"], user_data["masterpass"], "CYA SUCKER")
+
+    typer.secho("--------------------------------", fg=typer.colors.BRIGHT_RED)
+    confirm = (typer.prompt("Are you sure you want to delete your vault (y/n)")).lower()
+
+    if (confirm == "y"):
+        delete_vault(user_data["email"], user_data["masterpass"])
+        typer.secho("Vault exploded yippe", fg=typer.colors.GREEN)
+    else:
+        typer.secho("Wow you had mercy (did not remove vault)", fg=typer.colors.GREEN)
+
+        
+
+
 
 @app.command()
 def add(service: str):

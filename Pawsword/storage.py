@@ -17,5 +17,13 @@ def write_vault(data):
 
     temp_path.replace(vault_path)
 
+def kill_vault():
+    vault_path = get_vault_path()
+
+    if vault_path.exists():
+        vault_path.unlink()
+    else:
+        raise FileNotFoundError("Vault file does not exist")
+
 # if __name__ == '__main__':
 #     get_vault()
